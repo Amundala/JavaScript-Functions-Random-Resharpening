@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filter Function</title>
+  </head>
+  <body>
+    <script>
+      //--- FIND VALUES IN ARRAY ---
+      function isBigEnough(value) {
+        return value >= 10;
+      }
+      const filteredValue = [90, 2, 37, 1, 332, 233].filter(isBigEnough);
+
+      //--- Displaying all values from 10 ---
+      console.log("These are big numbers: ", filteredValue);
+
+      //--- FIND ALL PRIME NUMBERS IN AN ARRAY----
+      const allNumbers = [
+        -1, 2, -3, 5, 6, 7, 8, 9, 10, 11, -12, 13, 14, 14, 15, 17, 17, 18, 28,
+        34, 44, 56, 76, 78, 34, 3121, 567, 87, 89, 87, 4, 0,
+      ];
+
+      function isPrime(value) {
+        for (let i = 2; value > i; i++) {
+          if (value % i === 0) {
+            return false;
+          }
+        }
+        //--- Returning all prime numbers, remember gotta be WHOLE number greater than 1 ----
+        return value > 1;
+      }
+      console.log(
+        "Our Prime numbers ladies n gents: ",
+        allNumbers.filter(isPrime)
+      );
+
+      //--- Filtering invalid entries from a json ---
+      const jsonArray = [
+        { id: 15 },
+        { id: 0 },
+        { id: -1 },
+        { id: 15 },
+        { id: 3.33 },
+        {},
+        { id: 15 },
+        { id: -5 },
+        { id: null },
+        { id: NaN },
+        { id: "Undefined" },
+      ];
+      let invalidEntries = 0;
+      function filterById(item) {
+        if (Number.isFinite(item.id) && item.id !== 0) {
+          return true;
+        }
+        invalidEntries++;
+        return false;
+      }
+      const resultArray = jsonArray.filter(filterById);
+
+      console.log("Filtered Array Values \n", resultArray);
+
+      //--- SEARCHING IN AN ARRAY ---
+      const fruits = [
+        "banna",
+        "ibinyomoro",
+        "ibinyomoro ni byiza",
+        "marakuja",
+        "amaronnji",
+        "inasi",
+        "imineke",
+        "amateke",
+      ];
+      //--- filter an array based on a search criteria ---
+      function filteredFruits(array, query) {
+        return array.filter((insideItem) =>
+          insideItem.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+
+      console.log("Check how this is: \n", filteredFruits(fruits, "mara"));
+      console.log(
+        "Check how this brings 2: \n",
+        filteredFruits(fruits, "moro")
+      );
+      console.log("Check how this is: \n", filteredFruits(fruits, "si"));
+      console.log("Check how this is: \n", filteredFruits(fruits, "teke"));
+
+      //--- Using filter 3rd Argument ---
+      const names = ["AMundals3243", "To55m", "Maze23", "Sibyo23"];
+      const greatIDs = names
+        .map((name) => parseInt(name.match(/[0-9]+/)[0], 10))
+        .filter((id, idIndex, newArray) => {
+          //--- find ids that are strictly greater than their preceding and following IDs ---
+          if (idIndex > 0 && id <= newArray[idIndex - 1]) return false;
+          if (idIndex < newArray.length - 1 && idIndex <= newArray[idIndex + 1])
+            return false;
+          return true;
+        });
+      console.log(greatIDs);
+    </script>
+  </body>
+</html>
